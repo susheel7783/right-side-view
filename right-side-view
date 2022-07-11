@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void rightViewRecursion(TreeNode* root,int level,vector<int> &res){
+    if(root==NULL) return;
+                              //using reverse preorder traversal 
+        if(res.size()==level)  //means first traverse root ,then right,then left
+        {   //<---(like this)
+            res.push_back(root->val); //if size of vector equal to level then push that root in ans
+        }
+        rightViewRecursion(root->right,level+1,res); //calll recursion in right
+        rightViewRecursion(root->left,level+1,res);  //calll recursion in left
+    }
+    
+    vector<int> rightSideView(TreeNode* root) {
+       vector<int>res;
+       rightViewRecursion(root,0,res); //call rightViewRecursion function
+        return res;          
+    }
+};
